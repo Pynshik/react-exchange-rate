@@ -70,9 +70,13 @@ export function setExchangeRateTo(nameOfCurrency) {
 
 export const getCurrenciesThunkCreator = () => {
     return  (dispatch) => {
-        axios.get(url).then(data => {
-            dispatch(setAllCurrencies([...Object.keys(data.data.rates)]));
-            dispatch(setCurrencyRates(data.data.rates));
-        });
+        axios.get(url)
+            .then(data => {
+                dispatch(setAllCurrencies([...Object.keys(data.data.rates)]));
+                dispatch(setCurrencyRates(data.data.rates));
+            })
+            .catch(err=>{
+                console.log(`No data received. ${err}`)
+            });
     }
 }
